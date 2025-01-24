@@ -5,75 +5,80 @@ namespace AngryBirdsWinFormsApp;
 
 public partial class MainForm : Form
 {
-    BirdBall bird;
-    PigBall pig;
+    private BirdBall _bird { get; set; }
+    private PigBall _pig { get; set; }
+
     Timer timer = new Timer();
 
-    private int numberOfGames = 10;
-    private int numberOfPigs = 0;
-    public MainForm()
+    private int _numberOfGames = 10;
+    private int _numberOfPigs = 0;
+
+    public MainForm() : base()
     {
         InitializeComponent();
         StartPosition = FormStartPosition.CenterScreen;
         timer.Interval = 20;
-        timer.Tick += Timer_Tick;        
+        timer.Tick += Timer_Tick;
     }
-    private void MainForm_Load(object sender, EventArgs e)
-    {        
-    }
+
     private void Timer_Tick(object? sender, EventArgs e)
-    { 
-        
-        if (bird.IsCrossingBall(pig))
+    {
+
+        if (_bird.IsCrossingBall(_pig))
         {
             CreateNewBird();
             CreateNewPig();
-            numberOfPigs++;
-            shotDownPigBallCountLabel.Text = numberOfPigs.ToString();
-            MouseDown += MainForm_MouseDown;
-            numberOfGames--;
+
+            _numberOfPigs++;
+            shotDownPigBallCountLabel.Text = _numberOfPigs.ToString();
+            _numberOfGames--;
         }
-        if (!bird.IsMoveBallable() || bird.OutSide())
+
+        if (!_bird.IsMoveBallable() || _bird.OutSide())
         {
-           CreateNewBird();
-           MouseDown += MainForm_MouseDown;
-           numberOfGames--;
+            CreateNewBird();
+            _numberOfGames--;
         }
-        if (numberOfGames == 0)
+
+        if (_numberOfGames == 0)
         {
-            MessageBox.Show($"Игра окончена! Вы сбили {numberOfPigs} хрюшек."); 
+            MessageBox.Show($"Игра окончена! Вы сбили {_numberOfPigs} хрюшек.");
             Application.Exit();
         }
     }
+
     private void CreateNewPig()
     {
         timer.Stop();
-        if (pig != null)
+        if (_pig != null)
         {
-           pig.Stop();
-           pig.Clear();
+            _pig.Stop();
+            _pig.Clear();
         }
-        pig = new PigBall(this);
-        pig.Show();
+        _pig = new PigBall(this);
+        _pig.Show();
     }
+
     private void CreateNewBird()
     {
         timer.Stop();
-        if (bird != null)
+        if (_bird != null)
         {
-            bird.Stop();
-            bird.Clear();
+            _bird.Stop();
+            _bird.Clear();
         }
-        bird = new BirdBall(this);
-        bird.Show();
+
+        _bird = new BirdBall(this);
+        _bird.Show();
     }
+
     public void MainForm_MouseDown(object sender, MouseEventArgs e)
-    {        
-        bird.SetVelocity(e.X, e.Y);
+    {
+        _bird.SetVelocity(e.X, e.Y);
         timer.Start();
-        bird.Start();
-        MouseDown -= MainForm_MouseDown;
-    }   
+        _bird.Start();
+    }
+
     private void MainForm_Shown(object sender, EventArgs e)
     {
         CreateNewBird();
@@ -81,5 +86,5 @@ public partial class MainForm : Form
     }
 }
 
-    
+
 

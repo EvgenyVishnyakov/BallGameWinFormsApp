@@ -1,20 +1,21 @@
-﻿using Balls.Common;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
+using Balls.Common;
 
 namespace AngryBirdsWinFormsApp;
 
 public class PigBall : RandomBall
-{    
+{
     public PigBall(Form mainForm) : base(mainForm)
     {
-        brush = Brushes.Pink;
-        radius = 30;       
-        GetPositionOnForm();        
+        Brush = Brushes.Pink;
+        Radius = 30;
+        GetPositionOnForm();
     }
+
     private void GetPositionOnForm()
     {
-        centerX = random.Next(LeftSide() * 5, RightSide());
-        centerY = random.Next(TopSide() * 3 , DownSide());
-    }    
+        CenterX = random.Next(LeftSide() * 5, RightSide());
+        CenterY = random.Next(TopSide() * 3, DownSide());
+    }
 }

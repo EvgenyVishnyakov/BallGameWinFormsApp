@@ -87,8 +87,7 @@
             Font = new System.Drawing.Font("Cambria", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             Name = "GameForm";
             Text = "Фруктовая битва";
-            FormClosing += GameForm_FormClosing;
-            Load += GameForm_Load;
+            FormClosing += GameForm_FormClosing;            
             MouseMove += GameForm_MouseMove;
             ResumeLayout(false);
             PerformLayout();

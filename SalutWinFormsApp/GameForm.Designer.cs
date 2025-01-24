@@ -44,8 +44,7 @@
             BackColor = System.Drawing.Color.LightGray;
             ClientSize = new System.Drawing.Size(841, 641);
             Name = "GameForm";
-            Text = "Салют!!!";
-            Load += GameForm_Load;
+            Text = "Салют!!!";            
             MouseDown += GameForm_MouseDown;
             
             ResumeLayout(false);

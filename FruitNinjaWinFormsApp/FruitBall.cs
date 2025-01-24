@@ -1,40 +1,44 @@
-﻿using Balls.Common;
-using System;
-using System.Configuration;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Balls.Common;
 
 namespace FruitNinjaWinFormsApp;
 
 public class FruitBall : Ball
-{    
+{
     private float g = 0.021f;
-    private StepTime stepTime;   
-    
+    private StepTime _stepTime { get; set; }
+
     public FruitBall(GameForm gameForm) : base(gameForm)
     {
-        GenerateStartPositionBall(gameForm);        
-        radius = random.Next(20, 35);
-        stepTime = gameForm.stepTime;
-        timer.Interval = stepTime.Interval;        
-    }  
+        GenerateStartPositionBall(gameForm);
+        Radius = random.Next(20, 35);
+        _stepTime = gameForm.StepTime;
+        timer.Interval = _stepTime.Interval;
+    }
+
     protected override void Timer_Tick(object sender, EventArgs e)
     {
-        timer.Interval = stepTime.Interval;
-        base.Timer_Tick(sender, e);        
+        timer.Interval = _stepTime.Interval;
+        base.Timer_Tick(sender, e);
     }
+
     private void GenerationSpeedVY()
     {
-        vy = (float)random.NextDouble() * (-1) -3;
+        vy = (float)random.NextDouble() * (-1) - 3;
     }
+
     public bool IsBanana()
     {
-        return brush == Brushes.Yellow;
+        return Brush == Brushes.Yellow;
     }
+
     public bool IsBomb()
     {
-        return brush == Brushes.Black;
+        return Brush == Brushes.Black;
     }
+
     private void GenerateStartPositionBall(Form gameForm)
     {
         GenerateCenterX(gameForm);
@@ -42,27 +46,31 @@ public class FruitBall : Ball
         GenerateDirection(gameForm);
         GenerationSpeedVY();
     }
+
     private float GenerateDirection(Form gameForm)
     {
-        return (centerX == gameForm.ClientSize.Width / 8) ? vx = (float)random.NextDouble() * 2 + 5 : vx = (float)random.NextDouble() * -4 -1;
+        return (CenterX == gameForm.ClientSize.Width / 8) ? vx = (float)random.NextDouble() * 2 + 5 : vx = (float)random.NextDouble() * -4 - 1;
     }
+
     private void GenerateCenterY()
     {
-        centerY = (float)DownSide() + 1;
+        CenterY = (float)DownSide() + 1;
     }
+
     private void GenerateCenterX(Form gameForm)
     {
-        centerX = random.Next(1, 3) == 1 ? gameForm.ClientSize.Width / 8 : gameForm.ClientSize.Width - gameForm.ClientSize.Width / 8;        
+        CenterX = random.Next(1, 3) == 1 ? gameForm.ClientSize.Width / 8 : gameForm.ClientSize.Width - gameForm.ClientSize.Width / 8;
     }
+
     protected override void Go()
     {
         base.Go();
         vy += g;
-        if (centerY < - radius)
+        if (CenterY < -Radius)
         {
             Stop();
         }
-    }    
+    }
 }
-    
-   
+
+

@@ -1,25 +1,26 @@
-using Balls.Common;
 using System;
 using System.Windows.Forms;
+using Balls.Common;
 
 namespace BillyardBallsWinFormsApp;
 
 public partial class MainForm : Form
 {
-    private int amountBall = 10;
+    private int _amountBall = 10;
+
     public MainForm()
     {
         InitializeComponent();
     }
     private void MainForm_Load(object sender, EventArgs e)
     {
-        for (int i = 1; i < amountBall; i++)
+        for (int i = 1; i < _amountBall; i++)
         {
             var ball = new BillyardBall(this);
             ball.OnHited += Ball_OnHited;
             ball.Start();
         }
-        
+
     }
     protected virtual void Ball_OnHited(object? sender, HitEventArgs e)
     {

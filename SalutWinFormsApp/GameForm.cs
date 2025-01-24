@@ -7,13 +7,16 @@ namespace SalutWinFormsApp;
 
 public partial class GameForm : Form
 {
-    Random random = new Random();   
-    List<VerticalBall> verticalBalls = new List<VerticalBall>();
-    Timer timer = new Timer();   
+    Timer timer = new Timer();
 
     private int minCountSalut = 15;
-    private int maxCountSalut = 20;    
+    private int maxCountSalut = 20;
     private float centerY;
+
+    private Random _random = new Random();
+    private List<VerticalBall> _verticalBalls = new();
+
+
     public GameForm()
     {
         InitializeComponent();
@@ -22,20 +25,24 @@ public partial class GameForm : Form
         timer.Tick += Timer_Tick; ;
         timer.Start();
     }
+
     private void Timer_Tick(object? sender, EventArgs e)
     {
         StopVerticalBall();
     }
+
     private void GameForm_MouseDown(object sender, MouseEventArgs e)
     {
-        int salutCount = StartSalut();
+        var salutCount = StartSalut();
         CountSalut(e, salutCount);
     }
+
     private int StartSalut()
     {
-        var salutCount = random.Next(minCountSalut, maxCountSalut);
+        var salutCount = _random.Next(minCountSalut, maxCountSalut);
         return salutCount;
     }
+
     private void CountSalut(MouseEventArgs e, int salutCount)
     {
         for (int i = 0; i < salutCount; i++)
@@ -44,17 +51,19 @@ public partial class GameForm : Form
             salut.Start();
         }
     }
+
     private async void SaluteTimer_Tick(object sender, EventArgs e)
-    {       
-        var verticalBall = new VerticalBall(this);       
+    {
+        var verticalBall = new VerticalBall(this);
         verticalBall.Start();
-        verticalBalls.Add(verticalBall);     
+        _verticalBalls.Add(verticalBall);
         await Task.Delay(2000);
-        MakeSalut();           
+        MakeSalut();
     }
+
     public void StopVerticalBall()
     {
-        foreach (var ball in verticalBalls)
+        foreach (var ball in _verticalBalls)
         {
             if (centerY < ClientSize.Height * 0.65)
             {
@@ -62,11 +71,13 @@ public partial class GameForm : Form
             }
         }
     }
+
     private void MakeSalut()
     {
-        int salutCountBall = StartSalut();
+        var salutCountBall = StartSalut();
         SalutRandom(this, salutCountBall);
     }
+
     private void SalutRandom(object centerSalut, int salutCountBall)
     {
         float centerSalutX = GetKoordinate();
@@ -77,11 +88,9 @@ public partial class GameForm : Form
             salut.Start();
         }
     }
+
     private int GetKoordinate()
     {
         return ClientSize.Width / 2;
-    }
-    private void GameForm_Load(object sender, EventArgs e)
-    {        
     }
 }

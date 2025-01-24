@@ -64,7 +64,7 @@ namespace AngryBirdsWinFormsApp
             Controls.Add(label1);
             Name = "MainForm";
             Text = "AngryBirds";
-            Load += MainForm_Load;
+            //Load += MainForm_Load;
             Shown += MainForm_Shown;
             MouseDown += MainForm_MouseDown;
             ResumeLayout(false);

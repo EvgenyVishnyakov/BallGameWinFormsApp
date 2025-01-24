@@ -7,11 +7,11 @@ public class RandomBall : Ball
 {
     public RandomBall(Form gameForm) : base(gameForm)
     {
-        centerX = random.Next(LeftSide(), RightSide());
-        centerY = random.Next(TopSide(), DownSide());
+        CenterX = random.Next(LeftSide(), RightSide());
+        CenterY = random.Next(TopSide(), DownSide());
     }
     public RandomBall(Form gameForm, Brush brush) : base(gameForm,brush)
     {
-        centerY = random.Next(TopSide(), DownSide());
+        CenterY = random.Next(TopSide(), DownSide());
     }
 }

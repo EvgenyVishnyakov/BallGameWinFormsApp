@@ -6,35 +6,42 @@ namespace Balls.Common;
 public class BillyardBall : MoveBall
 {
     public event EventHandler<HitEventArgs> OnHited;
+    private Form _form { get; set; }
+
     public BillyardBall(Form form) : base(form)
-    {        
+    {
+        _form = form;
     }
+
     protected override void Go()
     {
         base.Go();
-        if (brush == GetBrush())
+        if (Brush == GetBrush())
         {
-            if (centerX <= LeftSide())
+            if (CenterX <= LeftSide())
             {
-                centerX = LeftSide();
+                CenterX = LeftSide();
                 vx = -vx;
                 OnHited.Invoke(this, new HitEventArgs(Side.Left));
             }
-            if (centerX >= RightSide())
+
+            if (CenterX >= RightSide())
             {
-                centerX = RightSide();
+                CenterX = RightSide();
                 vx = -vx;
                 OnHited.Invoke(this, new HitEventArgs(Side.Right));
             }
-            if (centerY <= TopSide())
+
+            if (CenterY <= TopSide())
             {
-                centerY = TopSide();
+                CenterY = TopSide();
                 vy = -vy;
                 OnHited.Invoke(this, new HitEventArgs(Side.Top));
             }
-            if (centerY >= DownSide())
+
+            if (CenterY >= DownSide())
             {
-                centerY = DownSide();
+                CenterY = DownSide();
                 vy = -vy;
                 OnHited.Invoke(this, new HitEventArgs(Side.Bottom));
             }

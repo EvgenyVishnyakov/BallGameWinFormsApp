@@ -6,73 +6,77 @@ namespace Balls.Common;
 
 public class DiffusionBall : MoveBall
 {
-    Brush brushRed;
-    Brush brushGreen;
+    //Brush brushRed;
+    //Brush brushGreen;
 
     public event EventHandler<HitEventArgs> OnHited;
+
     public DiffusionBall(Form form, Brush brush) : base(form, brush)
     {
         timer.Interval = 25;
         timer.Tick += Timer_Tick1; ;
         timer.Start();
     }
+
     private void Timer_Tick1(object? sender, EventArgs e)
     {
-        MoveBall();        
+        MoveBall();
     }
+
     protected override void Go()
     {
         base.Go();
-        if (brush == Brushes.OrangeRed)
+        if (Brush == Brushes.OrangeRed)
         {
-            if (centerX <= LeftSide())
+            if (CenterX <= LeftSide())
             {
-                centerX = LeftSide();
+                CenterX = LeftSide();
                 vx = -vx;
                 OnHited.Invoke(this, new HitEventArgs(Side.Left));
             }
-            if (centerX >= RightSide())
+            if (CenterX >= RightSide())
             {
-                centerX = RightSide();
+                CenterX = RightSide();
                 vx = -vx;
                 OnHited.Invoke(this, new HitEventArgs(Side.Right));
             }
-            if (centerY <= TopSide())
+            if (CenterY <= TopSide())
             {
-                centerY = TopSide();
+                CenterY = TopSide();
                 vy = -vy;
                 OnHited.Invoke(this, new HitEventArgs(Side.Top));
             }
-            if (centerY >= DownSide())
+            if (CenterY >= DownSide())
             {
-                centerY = DownSide();
+                CenterY = DownSide();
                 vy = -vy;
                 OnHited.Invoke(this, new HitEventArgs(Side.Bottom));
             }
         }
-        if (brush == Brushes.GreenYellow)
+
+        if (Brush == Brushes.GreenYellow)
         {
-            if (centerX <= LeftSide())
+            if (CenterX <= LeftSide())
             {
-                centerX = LeftSide();
+                CenterX = LeftSide();
                 vx = -vx;
                 OnHited.Invoke(this, new HitEventArgs(Side.Left));
             }
-            if (centerX >= RightSide())
+            if (CenterX >= RightSide())
             {
-                centerX = RightSide();
+                CenterX = RightSide();
                 vx = -vx;
                 OnHited.Invoke(this, new HitEventArgs(Side.Right));
             }
-            if (centerY <= TopSide())
+            if (CenterY <= TopSide())
             {
-                centerY = TopSide();
+                CenterY = TopSide();
                 vy = -vy;
                 OnHited.Invoke(this, new HitEventArgs(Side.Top));
             }
-            if (centerY >= DownSide())
+            if (CenterY >= DownSide())
             {
-                centerY = DownSide();
+                CenterY = DownSide();
                 vy = -vy;
                 OnHited.Invoke(this, new HitEventArgs(Side.Bottom));
             }
